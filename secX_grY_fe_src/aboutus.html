@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0 }
+    body, html { font-family: Arial, sans-serif; min-height:100%; }
+
+    .background {
+      position: fixed; top:0; left:0; width:100vw; height:100vh;
+      background: url("/images/spa2.0.png") center/cover no-repeat;
+      opacity:0.65; z-index:-1;
+    }
+    .main-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8em 2em; background: rgba(255,255,255,0.9);
+      position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #ddd;
+    }
+    .nav-left { display:flex; align-items:center; gap:0.8em; }
+    .logo { width:40px; height:40px; }
+    .site-title {
+      font-family: 'Great Vibes', cursive; font-size:1.8em; color:#333;
+    }
+    .nav-right { display:flex; align-items:center; gap:1.2em; }
+    .nav-right a { text-decoration:none; color:#4e8c79; font-weight:600; }
+    .nav-right a:hover { text-decoration:underline; }
+  
+    header + .divider {
+      height:1px; background:#ccc; margin:0 2em;
+    }
+
+ 
+    main {
+      display: flex;
+      justify-content: center;
+      padding: 3em 1em 6em; 
+    }
+    .team-container {
+      display: flex;
+      gap: 4em;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .member {
+      text-align: center;
+    }
+    .member img {
+      width: 120px; height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      margin-bottom: 0.5em;
+    }
+    .member .name {
+      font-size: 1.1em; color:#333;
+    }
+    .page-footer {
+      position: fixed; left:0; bottom:0; width:100%;
+      background: rgba(128,128,128,0.7);
+      text-align:center; padding:0.5em 0; font-weight:bold; z-index:100;
+    }
+    .footer-nav a {
+      margin:0 2em; color:#333; text-decoration:none;
+    }
+    .footer-nav a:hover { text-decoration:underline; }
+
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <header class="main-nav">
+    <div class="nav-left">
+      <a href="index.html"><img src="/images/logo.png" alt="Logo" class="logo"></a>
+      <div class="site-title">LaoYouSuoYi</div>
+    </div>
+    <div class="nav-right">
+      <a href="search.html">Search</a>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </header>
+  <div class="divider"></div>
+
+  <main>
+    <div class="team-container">
+      <div class="member">
+        <img src="/images/wcx.jpg" alt="Chengxiao Wang">
+        <div class="name">Chengxiao Wang</div>
+      </div>
+      <div class="member">
+        <img src="/images/whj.jpg" alt="Hejun Wang">
+        <div class="name">Hejun Wang</div>
+      </div>
+      <div class="member">
+        <img src="/images/wzs.png" alt="Zishu Wang">
+        <div class="name">Zishu Wang</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </footer>
+</body>
+</html>
+
