@@ -2,6 +2,7 @@
 
 1. npm install all of the responses.(npm install bcrypt,body-parser,dotenv ,express,express-session,jsonwebtoken,multer, MySQL,mysql2,nodemon, path);
 2. Login database
+3. 
 #DBhost = localhost
 
 #username = lysy
