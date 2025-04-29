@@ -126,9 +126,3 @@ INSERT INTO service_variant (service_id, duration_minutes, price) VALUES
   (8, 120,1200.00);
 
 
-select  first_name  From patient;
-select payment_id from payment;
-select appointment_id from appointment;
-select service_id,name from massage_service;
-SELECT * FROM service_variant ORDER BY service_id, duration_minutes;
-show tables;
