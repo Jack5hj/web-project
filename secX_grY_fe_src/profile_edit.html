@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html { font-family: Arial, sans-serif; min-height: 100%; background-color: #f8f8f8; }
+
+    .background {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: url("/images/3.0.png") center/cover no-repeat;
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8em 2em;
+      background: rgba(255, 255, 255, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      height: 50px;
+    }
+
+    .site-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 28px;
+      color: #333;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    main {
+      margin-top: 2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .profile-pic {
+      margin-bottom: 1em;
+    }
+
+    .profile-pic img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    #avatarFile {
+      margin-top: 10px;
+    }
+
+    .form-panel {
+      margin-top: 1em;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2em;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form label {
+      text-align: left;
+      font-weight: bold;
+      margin-top: 1em;
+      margin-bottom: 0.3em;
+      color: #333;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form input[type="date"] {
+      padding: 0.7em;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      margin-bottom: 0.5em;
+    }
+
+    form button {
+      margin-top: 1.5em;
+      padding: 0.8em;
+      background-color: #d4d4d4;
+      border: none;
+      border-radius: 20px;
+      font-size: 16px;
+      color: #333;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    form button:hover {
+      background-color: #c0c0c0;
+    }
+
+    footer.page-footer {
+      margin-top: 3em;
+      padding: 1em;
+      background: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .footer-nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+
+  <header>
+    <a href="index.html"><img src="/images/logo.png" alt="Logo" class="logo"></a>
+    <div class="site-title">LaoYouSuoYi</div>
+    <nav>
+      <a href="search.html">Search</a>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <div class="divider"></div>
+
+  <main>
+    <div class="profile-pic">
+      <img id="editAvatar" src="/images/user-avatar.jpg" alt="User Avatar">
+      <input type="file" id="avatarFile" accept="image/*">
+    </div>
+
+    <div class="form-panel">
+      <form id="editForm">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" required>
+
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" required>
+
+        <label for="email">E‑mail</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" name="phone">
+
+        <label for="dob">Birthdate</label>
+        <input type="date" id="dob" name="dob">
+
+        <label for="password">New Password</label>
+        <input type="password" id="password" name="password">
+
+        <button type="submit">Confirm</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </footer>
+
+  <script>
+    const token = sessionStorage.getItem('authToken');
+    if (!token) location.href = 'login.html';
+
+    fetch('/api/profile', { headers: { 'Authorization': `Bearer ${token}` } })
+      .then(r => r.json())
+      .then(profile => {
+        document.getElementById('editAvatar').src = profile.avatar || '/images/user-avatar.jpg';
+        document.getElementById('first_name').value = profile.first_name;
+        document.getElementById('last_name').value  = profile.last_name;
+        document.getElementById('email').value      = profile.email;
+        document.getElementById('phone').value      = profile.phone || '';
+        if (profile.dob) document.getElementById('dob').value = profile.dob.split('T')[0];
+      });
+
+    document.getElementById('editForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const fd = new FormData();
+      fd.append('first_name', document.getElementById('first_name').value);
+      fd.append('last_name',  document.getElementById('last_name').value);
+      fd.append('email',      document.getElementById('email').value);
+      fd.append('phone',      document.getElementById('phone').value);
+      fd.append('dob',        document.getElementById('dob').value);
+      const pwd = document.getElementById('password').value;
+      if (pwd) fd.append('password', pwd);
+      const fileInput = document.getElementById('avatarFile');
+      if (fileInput.files.length) {
+        fd.append('avatar', fileInput.files[0]);
+      }
+
+      const resp = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: fd
+      });
+
+      if (resp.ok) {
+        alert('Profile updated');
+        location.href = 'profile.html';
+      } else {
+        const err = await resp.json();
+        alert('Update failed: ' + err.error);
+      }
+    });
+  </script>
+
+</body>
+</html>

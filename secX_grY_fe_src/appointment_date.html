@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Date</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0 }
+    body, html { font-family: "Segoe UI", sans-serif; height:100%; }
+    .background {
+      position:fixed; top:0; left:0; width:100vw; height:100vh;
+      background: url("/images/SPA.png") center/cover no-repeat;
+      opacity:0.65; z-index:-1;
+    }
+    .main-nav {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:0.8em 2em; background:rgba(255,255,255,0.9);
+      position:sticky; top:0; z-index:100; border-bottom:1px solid #ddd;
+    }
+    .nav-left, .nav-right { display:flex; align-items:center; gap:1em }
+    .logo { width:40px; height:40px }
+    .site-title { font-family:'Great Vibes', cursive; font-size:1.8em; }
+    .nav-right a { text-decoration:none; color:#4e8c79; font-weight:600 }
+    .nav-right a:hover { text-decoration:underline }
+    main {
+      max-width:600px; margin:4em auto; padding:0 1em;
+      text-align:center; color:#333;
+    }
+    h2 { font-size:1.8em; margin-bottom:1em }
+    form { display:flex; flex-direction:column; gap:1.2em }
+    input[type="date"] {
+      padding:0.8em; border:1px solid #ccc; border-radius:6px;
+      font-size:1em;
+    }
+    button {
+      padding:0.8em; background:#4e8c79; color:white;
+      border:none; border-radius:6px; font-size:1em;
+      cursor:pointer; transition:background 0.3s;
+    }
+    button:hover { background:#3b6e61 }
+    .page-footer {
+   position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(128, 128, 128, 0.7); 
+  text-align: center;
+  padding: 0.5em 0;
+  font-weight: bold;
+  z-index: 100;
+}
+
+.footer-nav a {
+  margin: 0 2em;
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background"></div>
+
+  <header class="main-nav">
+    <div class="nav-left">
+      <a href="index.html"><img src="/images/logo.png" class="logo"></a>
+      <div class="site-title">LaoYouSuoYi</div>
+    </div>
+    <div class="nav-right">
+      <a href="search.html">Search</a>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </header>
+
+  <main>
+    <h2>Choose the most comfortable date</h2>
+    <form id="dateForm">
+      <input type="date" id="date" required>
+      <button type="submit">Next: Choose Time</button>
+    </form>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('date');
+    dateInput.min = today;
+    if (params.has('date')) dateInput.value = params.get('date');
+    document.getElementById('dateForm').addEventListener('submit', e => {
+      e.preventDefault();
+      params.set('date', dateInput.value);
+      window.location.href = `appointment_time.html?${params.toString()}`;
+    });
+  </script>
+    <footer class="page-footer">
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+      </nav>
+    </footer>
+  </body>
+  </html>
+  
+</body>
+</html>

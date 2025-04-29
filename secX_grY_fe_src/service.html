@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Service Details – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0 }
+    body, html {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+    }
+    .background {
+      position: fixed; top:0; left:0; width:100vw; height:100vh;
+      background: url("/images/spa2.0.png") center/cover no-repeat;
+      opacity:0.3; z-index:-1;
+    }
+
+    header {
+      display: flex; align-items: center;
+      padding: 0.5em 1em; background: #fff;
+      position: sticky; top:0; z-index:100; border-bottom:1px solid #ddd;
+    }
+    .back {
+      font-size:1.5em; cursor:pointer; margin-right:1em;
+    }
+    header .nav-left {
+      display: flex; align-items: center;
+      gap:0.5em; flex:1;
+    }
+    header img.logo {
+      width:36px; height:36px;
+    }
+    header h1 {
+      font-family:'Great Vibes', cursive; font-size:1.5em; color:#333;
+    }
+    header .nav-right a {
+      margin-left:1em; text-decoration:none; color:#4e8c79; font-weight:600;
+    }
+    header .nav-right a:hover {
+      text-decoration:underline;
+    }
+
+    main {
+      max-width:800px; margin:1em auto; padding:0 1em;
+    }
+    .item {
+      background:#fff; margin:0.5em 0; padding:1em;
+      border-radius:6px; display:flex; align-items:center;
+      box-shadow:0 2px 4px rgba(0,0,0,0.1);
+    }
+    .item img {
+      width:64px; height:64px; object-fit:cover; border-radius:6px;
+      margin-right:1em;
+    }
+    .item .info {
+      flex:1;
+    }
+    .item .info h3 {
+      margin-bottom:0.3em; font-size:1.1em; color:#333;
+    }
+    .item .info p {
+      font-size:0.9em; color:#666; margin-bottom:0.5em;
+    }
+    .item .info .price {
+      font-weight:bold; color:#4e8c79; margin-bottom:0.5em;
+    }
+    .item .info .book-btn {
+      display:inline-block; padding:0.5em 1em;
+      background:#4e8c79; color:#fff; text-decoration:none;
+      border-radius:5px; transition:background 0.3s;
+    }
+    .item .info .book-btn:hover {
+      background:#3b6e61;
+    }
+    footer {
+      text-align:center; padding:1em; color:#999; font-size:0.8em;
+    }
+    .page-footer {
+   position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(128, 128, 128, 0.7); 
+  text-align: center;
+  padding: 0.5em 0;
+  font-weight: bold;
+  z-index: 100;
+}
+
+.footer-nav a {
+  margin: 0 2em;
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="background"></div>
+
+  <header>
+    <div class="back" onclick="history.back()">←</div>
+    <div class="nav-left">
+      <img src="/images/logo.png" alt="Logo" class="logo">
+      <h1 id="svc-title">Service</h1>
+    </div>
+    <div class="nav-right">
+      <a href="search.html">Search</a>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </header>
+
+  <main id="list"></main>
+
+  <footer>&copy; 2025 LYSY – LaoYouSuoYi</footer>
+
+  <script>
+
+    const services = {
+      facial:  { id: 8, title: "Facial Massage",        items: [
+        { name:"Facial 60 min",  desc:"Gentle facial massage",      img:"/images/face.png",       duration:60,   price:600 },
+        { name:"Facial 90 min",  desc:"Deep skin treatment",        img:"/images/face.png",       duration:90,   price:1000 },
+        { name:"Facial 120 min", desc:"Deluxe facial package",      img:"/images/face.png",       duration:120,  price:1200 }
+      ]},
+      foot:    { id: 1, title: "Foot Massage",          items: [
+        { name:"Foot 60 min",    desc:"Relax your feet",            img:"/images/foot.png",       duration:60,   price:400 },
+        { name:"Foot 90 min",    desc:"Deep reflexology",           img:"/images/foot.png",       duration:90,   price:650 },
+        { name:"Foot 120 min",   desc:"Extended therapy",           img:"/images/foot.png",       duration:120,  price:800 }
+      ]},
+      body:    { id: 3, title: "Body Massage",          items: [
+        { name:"Body 60 min",    desc:"Full body relaxation",       img:"/images/body.jpg",       duration:60,   price:600 },
+        { name:"Body 90 min",    desc:"Deep tissue",                img:"/images/body.jpg",       duration:90,   price:800 },
+        { name:"Body 120 min",   desc:"Deluxe package",             img:"/images/body.jpg",       duration:120,  price:1000 }
+      ]},
+      oil:     { id: 4, title: "Oil Massage",           items: [
+        { name:"Oil 60 min",     desc:"Aromatic oil treatment",     img:"/images/oil.png",        duration:60,   price:600 },
+        { name:"Oil 90 min",     desc:"Extended oil therapy",       img:"/images/oil.png",        duration:90,   price:1100 },
+        { name:"Oil 120 min",    desc:"Deluxe oil therapy",         img:"/images/oil.png",        duration:120,  price:1200 }
+      ]},
+      head:    { id: 2, title: "Head Massage",          items: [
+        { name:"Head 60 min",    desc:"Stress relief",             img:"/images/head.jpg",       duration:60,   price:400 },
+        { name:"Head 90 min",    desc:"Scalp therapy",             img:"/images/head.jpg",       duration:90,   price:650 }
+      ]},
+      couple:  { id: 6, title: "Thai Style Massage",    items: [
+        { name:"Thai 60 min",    desc:"Traditional Thai style",     img:"/images/thai.png",       duration:60,   price:500 },
+        { name:"Thai 90 min",    desc:"Extended experience",        img:"/images/thai.png",       duration:90,   price:800 }
+      ]},
+      aroma:   { id: 7, title: "Aromatherapy Massage",   items: [
+        { name:"Aroma 60 min",   desc:"With essential oils",        img:"/images/aromatherapy.jpg", duration:60,  price:600 },
+        { name:"Aroma 90 min",   desc:"Deep scent experience",      img:"/images/aromatherapy.jpg", duration:90,  price:900 }
+      ]},
+      kid:     { id: 5, title: "Massage for Kid",        items: [
+        { name:"Kid 60 min",     desc:"Light and fun",              img:"/images/kid.png",        duration:60,   price:400 },
+        { name:"Kid 90 min",     desc:"Extended play therapy",      img:"/images/kid.png",        duration:90,   price:600 }
+      ]},
+    };
+
+  
+    const params = new URLSearchParams(window.location.search);
+    const type   = params.get("type") || "facial";
+    const svc    = services[type] || services.facial;
+
+   
+    document.getElementById("svc-title").textContent = svc.title;
+
+
+    const list = document.getElementById("list");
+    svc.items.forEach(it => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <img src="${it.img}" alt="${it.name}">
+        <div class="info">
+          <h3>${it.name}</h3>
+          <p>${it.desc}</p>
+          <div class="price">${it.price} Baht</div>
+         <a href="appointment_date.html?service=${type}&duration=${it.duration}&price=${it.price}"class="book-btn">Book</a>
+        </div>
+      `.replace(/\s+/g,' '); // 
+      list.appendChild(div);
+    });
+  </script>
+
+  <footer class="page-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </footer>
+</body>
+</html>

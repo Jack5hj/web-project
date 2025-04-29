@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Services – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body, html {
+      font-family: "Segoe UI", sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+ 
+    .main-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8em 2em;
+      background: rgba(255,255,255,0.9);
+      position: sticky; top:0; z-index:100;
+      border-bottom: 1px solid #ddd;
+    }
+    .nav-left {
+      display: flex; align-items: center; gap:0.8em;
+    }
+    .logo {
+      width:40px; height:40px;
+    }
+    .site-title {
+      font-family: 'Great Vibes', cursive;
+      font-size:1.8em; color:#333;
+    }
+    .nav-right {
+      display: flex; align-items: center; gap:1.2em;
+    }
+    .nav-right a {
+      text-decoration: none; color:#4e8c79; font-weight:600;
+    }
+    .nav-right a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width:1200px;
+      margin:2em auto;
+      padding:0 1em;
+    }
+    .page-title {
+      font-size:1.5em;
+      margin-bottom:1em;
+      border-left:4px solid #4e8c79;
+      padding-left:0.5em;
+    }
+
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap:1.5em;
+    }
+    .service-card {
+      background:#fff;
+      border:1px solid #e1e1e1;
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow:0 2px 6px rgba(0,0,0,0.05);
+      display:flex; flex-direction:column;
+      transition:transform 0.2s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+    }
+    .service-card img {
+      width:100%; height:180px;
+      object-fit:cover;
+    }
+    .service-info {
+      padding:1em; flex:1;
+      display:flex; flex-direction:column;
+      justify-content: flex-start;
+      gap:0.5em;
+    }
+    .service-info a {
+      font-size:1.1em; color:#333;
+      text-decoration:none;
+    }
+    .service-info a:hover {
+      text-decoration:underline;
+    }
+    .service-info .price {
+      font-size:0.95em; font-weight:bold;
+      color:#4e8c79;
+    }
+    .page-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(128, 128, 128, 0.7); 
+  text-align: center;
+  padding: 0.5em 0;
+  font-weight: bold;
+  z-index: 100;
+}
+
+.footer-nav a {
+  margin: 0 2em;
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+  <header class="main-nav">
+    <div class="nav-left">
+      <a href="index.html"><img src="/images/logo.png" alt="Logo" class="logo"></a>
+      <div class="site-title">LaoYouSuoYi</div>
+    </div>
+    <div class="nav-right">
+      <a href="search.html">Search</a>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </header>
+
+
+  <main>
+    <div class="page-title">Massage</div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <img src="/images/foot.png" alt="Foot Massage">
+        <div class="service-info">
+          <a href="service.html?type=foot">Foot Massage</a>
+          <div class="price">400 Baht</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/head.jpg" alt="Head Massage">
+        <div class="service-info">
+          <a href="service.html?type=head">Head Massage</a>
+          <div class="price">400 Baht</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/body.jpg" alt="Body Massage">
+        <div class="service-info">
+          <a href="service.html?type=body">Body Massage</a>
+          <div class="price">600 Baht</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/oil.png" alt="Oil Massage">
+        <div class="service-info">
+          <a href="service.html?type=oil">Oil Massage</a>
+          <div class="price">600 Baht</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/kid.png" alt="Massage for Kid">
+        <div class="service-info">
+          <a href="service.html?type=kid">Massage for Kid</a>
+          <div class="price">400 Baht</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/thai.png" alt="Thai Style Massage">
+        <div class="service-info">
+          <a href="service.html?type=couple">Thai Style Massage</a>
+          <div class="price">500 Baht</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/aromatherapy.jpg" alt="Aromatherapy Massage">
+        <div class="service-info">
+          <a href="service.html?type=aroma">Aromatherapy Massage</a>
+          <div class="price">600 Baht</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/face.png" alt="Facial Massage">
+        <div class="service-info">
+          <a href="service.html?type=facial">Facial Massage</a>
+          <div class="price">600 Baht</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <footer class="page-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </footer>
+  <script src="js/services.js"></script>
+</body>
+</html>
+
+</body>
+</html>

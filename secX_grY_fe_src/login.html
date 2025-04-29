@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign In – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    .main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8em 2em;
+  background: rgba(255,255,255,0.9);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #ddd;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+.logo {
+  width: 40px;
+  height: 40px;
+}
+.site-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8em;
+  margin: 0;
+  color: #333;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2em;
+}
+.nav-right a {
+  text-decoration: none;
+  color: #4e8c79;
+  font-weight: 600;
+}
+.nav-right a:hover {
+  text-decoration: underline;
+}
+.nav-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width:100vw; height:100vh;
+      background: url("/images/SPA.png") center/cover no-repeat;
+      opacity: 0.65;
+      z-index: -1;
+    }
+   
+    header {
+      display: flex;
+      align-items: center;
+      padding: 1em 2em;
+    }
+    header img {
+      width: 50px;
+      height: 50px;
+    }
+    header h1 {
+      flex: 1;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2em;
+      color: #333;
+    }
+    /* 登录框 */
+    .login-box {
+      width: 320px;
+      margin: 5% auto;
+      background-color: rgba(255,255,255,0.9);
+      padding: 2em;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .login-box label {
+      display:block;
+      margin-top:1em;
+      color: #555;
+      font-size: 0.9em;
+    }
+    .login-box input {
+      width:100%;
+      padding:0.6em;
+      margin-top:0.3em;
+      border:1px solid #ccc;
+      border-radius:5px;
+      font-size:1em;
+    }
+    .login-box button {
+      width:100%;
+      margin-top:1.5em;
+      padding:0.7em;
+      background:#4e8c79;
+      border:none;
+      color:white;
+      font-size:1em;
+      border-radius:5px;
+      cursor:pointer;
+      transition: background 0.3s;
+    }
+    .login-box button:hover {
+      background:#3b6e61;
+    }
+    .login-box .links {
+      text-align: center;
+      margin-top:1em;
+      font-size:0.85em;
+    }
+    .login-box .links a {
+      color:#4e8c79;
+      text-decoration:none;
+      margin:0 0.3em;
+    }
+    .login-box .links a:hover {
+      text-decoration:underline;
+    }
+    .page-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(128, 128, 128, 0.7); /* 半透明灰 */
+  text-align: center;
+  padding: 0.5em 0;
+  font-weight: bold;
+  z-index: 100;
+}
+
+.footer-nav a {
+  margin: 0 2em;
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="background"></div>
+
+  <header>
+    <img src="/images/logo.png" alt="LYSY Logo">
+    <h1>LaoYouSuoYi</h1>
+  </header>
+
+  <div class="login-box">
+    <form id="loginForm">
+      <label for="email">Email / Phone Number</label>
+      <input type="text" id="email" name="email" required placeholder="Enter Email or Phone">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required placeholder="Enter Password">
+
+      <button type="submit">Sign In</button>
+    </form>
+    <div class="links">
+      <a href="#">Forgot password?</a> |
+      <a href="register.html">No Account? Register Now!</a>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </footer>
+  <script src="js/auth.js"></script>
+</body>
+</html>
+
+</body>
+</html>

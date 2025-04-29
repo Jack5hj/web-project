@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body,html{font-family:Arial,sans-serif;height:100%}
+    .background{
+      position:fixed;top:0;left:0;width:100vw;height:100vh;
+      background:url("/images/spa2.0.png") center/cover no-repeat;
+      opacity:0.65;z-index:-1;
+    }
+    .main-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8em 2em; background: rgba(255,255,255,0.9);
+      position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #ddd;
+    }
+    .nav-left { display:flex; align-items:center; gap:0.8em; }
+    .logo { width:40px; height:40px; }
+    .site-title {
+      font-family: 'Great Vibes', cursive; font-size:1.8em; color:#333;
+    }
+    .nav-right a { text-decoration:none; color:#4e8c79; font-weight:600; }
+    .nav-right a:hover { text-decoration:underline; }
+
+    main{
+      max-width:800px;margin:3em auto;padding:1em;
+      background:rgba(255,255,255,0.9);border-radius:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    .section-title{font-size:1.5em;margin-bottom:0.5em;color:#333}
+    .options{display:flex;gap:1em;flex-wrap:wrap;margin-bottom:1.5em}
+    .option{
+      flex:1;min-width:120px;
+      padding:1em;
+      border:2px solid #ccc;border-radius:8px;
+      text-align:center;cursor:pointer;
+      transition:border-color 0.3s,background 0.3s;
+    }
+    .option.selected{
+      border-color:#4e8c79;
+      background:rgba(78,140,121,0.1);
+    }
+    .option img{max-width:80px;height:auto;margin-bottom:0.5em}
+    .total{font-size:1.2em;margin-bottom:1em;color:#4e8c79}
+    .btn-pay{
+      display:block;width:100%;
+      padding:0.8em;
+      background:#4e8c79;color:#fff;
+      border:none;border-radius:6px;
+      font-size:1em;cursor:pointer;
+      opacity:0.5;pointer-events:none;
+      transition:opacity 0.3s,background 0.3s;
+    }
+    .btn-pay.enabled{
+      opacity:1;pointer-events:all;
+    }
+    .btn-pay.enabled:hover{background:#3b6e61}
+    .page-footer {
+      position: fixed; left: 0; bottom: 0; width: 100%;
+      background: rgba(128, 128, 128, 0.7); text-align: center;
+      padding: 0.5em 0; font-weight: bold; z-index: 100;
+    }
+    .footer-nav a { margin: 0 2em; color: #333; text-decoration: none; }
+    .footer-nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <header class="main-nav">
+    <div class="nav-left">
+      <a href="index.html"><img src="/images/logo.png" class="logo" alt="Logo"></a>
+      <div class="site-title">LaoYouSuoYi</div>
+    </div>
+    <div class="nav-right">
+      <a href="search.html">Search</a>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-title">Select Payment Method</div>
+    <div class="options" id="options">
+      <div class="option" data-method="visa">
+        <img src="/images/visa.png" alt="Visa">
+        <div>Visa PAY</div>
+      </div>
+      <div class="option" data-method="prompt">
+        <img src="/images/payment.jpg" alt="Prompt Pay">
+        <div>Prompt PAY</div>
+      </div>
+    </div>
+
+    <div class="total" id="total">Total: 0 Baht</div>
+    <button id="btnPay" class="btn-pay">Pay Now</button>
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+ 
+    const params = new URLSearchParams(window.location.search);
+    const price = params.get('price') || '0';
+    document.getElementById('total').textContent = `Total: ${price} Baht`;
+
+  
+    const options = document.querySelectorAll('.option');
+    let selectedMethod = null;
+    options.forEach(opt => {
+      opt.addEventListener('click', () => {
+        options.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedMethod = opt.dataset.method;
+        document.getElementById('btnPay').classList.add('enabled');
+      });
+    });
+
+  
+    document.getElementById('btnPay').addEventListener('click', () => {
+      if (!selectedMethod) return;
+      
+      params.set('method', selectedMethod);
+      window.location.href =`payment_success.html?${params.toString()}`;
+    });
+  });
+  </script>
+
+  <footer class="page-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </footer>
+</body>
+</html>

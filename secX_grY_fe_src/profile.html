@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html { font-family: Arial, sans-serif; min-height: 100%; background-color: #f8f8f8; }
+
+    .background {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: url("/images/3.0.png") center/cover no-repeat;
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8em 2em;
+      background: rgba(255, 255, 255, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      height: 50px;
+    }
+
+    .site-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 28px;
+      color: #333;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    main {
+      margin-top: 2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .profile-info img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin-bottom: 1em;
+    }
+
+    .name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      color: #333;
+    }
+
+    .contact {
+      font-size: 16px;
+      margin-bottom: 1.5em;
+      color: #555;
+    }
+
+    .manage-btn {
+      padding: 0.8em 2em;
+      background-color: #d4d4d4;
+      border: none;
+      border-radius: 20px;
+      font-size: 16px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .manage-btn:hover {
+      background-color: #c0c0c0;
+    }
+
+    footer.page-footer {
+      margin-top: 3em;
+      padding: 1em;
+      background: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .footer-nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+
+  <header>
+    <a href="index.html"><img src="/images/logo.png" alt="Logo" class="logo"></a>
+    <div class="site-title">LaoYouSuoYi</div>
+    <nav>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <div class="divider"></div>
+
+  <main>
+    <div class="profile-info">
+      <img id="avatarImg" src="/images/user-avatar.jpg" alt="User Avatar">
+      <div class="name" id="userName">Loading...</div>
+      <div class="contact" id="userContact">Loading...</div>
+      <a href="profile_edit.html" class="manage-btn">Manage File</a>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </footer>
+
+  <script>
+    const token = sessionStorage.getItem('authToken');
+    if (!token) {
+      location.href = 'login.html'; 
+    } else {
+      fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(r => r.json())
+      .then(profile => {
+        document.getElementById('avatarImg').src = profile.avatar || '/images/user-avatar.jpg';
+        document.getElementById('userName').textContent = `${profile.first_name} ${profile.last_name}`;
+        document.getElementById('userContact').innerHTML =
+          `E‑mail: ${profile.email}<br>Phone: ${profile.phone || '—'}`;
+      })
+      .catch(err => console.error('Profile load error', err));
+    }
+  </script>
+
+</body>
+</html>

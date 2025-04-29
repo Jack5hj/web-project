@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmation – LaoYouSuoYi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0 }
+    body, html {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+    }
+    .background {
+      position: fixed; top:0; left:0; width:100vw; height:100vh;
+      background: url("/images/spa2.0.png") center/cover no-repeat;
+      opacity:0.3; z-index:-1;
+    }
+    header {
+      display:flex; align-items:center;
+      padding:0.5em 1em; background:#fff;
+      position:sticky; top:0; z-index:100; border-bottom:1px solid #ddd;
+    }
+    .nav-left, .nav-right { display:flex; align-items:center; }
+    .nav-left { flex:1; gap:0.5em; }
+    .logo { width:36px; height:36px; }
+    .site-title {
+      font-family:'Great Vibes', cursive; font-size:1.5em; color:#333;
+    }
+    .nav-right a {
+      margin-left:1em; text-decoration:none; color:#4e8c79; font-weight:600;
+    }
+    .nav-right a:hover { text-decoration:underline; }
+
+    main {
+      max-width:800px; margin:2em auto; padding:1em;
+      background:rgba(255,255,255,0.9); border-radius:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    .confirm-header {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      margin-bottom: 1em;
+    }
+    .confirm-header .profile {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .confirm-header h1.confirm-title {
+      margin: 0;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2em;
+      color: #333;
+    }
+    .details {
+      margin-top:1em; line-height:1.6em; color:#333;
+      font-size:1.1em;
+    }
+    .details b { color:#4e8c79; }
+    .btn-pay {
+      display:block; margin:2em auto 0;
+      padding:0.8em 2em; background:#4e8c79; color:#fff;
+      text-decoration:none; font-size:1em; border-radius:6px;
+      text-align:center; width:120px; transition:background 0.3s;
+    }
+    .btn-pay:hover { background:#3b6e61; }
+    footer {
+      text-align:center; margin-top:3em; color:#999; font-size:0.8em;
+    }
+    .page-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(128, 128, 128, 0.7); 
+  text-align: center;
+  padding: 0.5em 0;
+  font-weight: bold;
+  z-index: 100;
+}
+
+.footer-nav a {
+  margin: 0 2em;
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="background"></div>
+
+  <header>
+    <div class="nav-left">
+      <a href="index.html"><img src="/images/logo.png" class="logo" alt="Logo"></a>
+      <div class="site-title">LaoYouSuoYi</div>
+    </div>
+    <div class="nav-right">
+      <a href="search.html">Search</a>
+      <a href="services.html">Book Now</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </header>
+
+
+
+<main>
+  <div class="confirm-header">
+    <img id="profileImg" class="profile" src="/uploads/avatars/default.png" alt="Profile">
+    <h1 class="confirm-title" id="userName">User Name</h1>
+  </div>
+
+  <div class="details">
+    <p><b>Service:</b> <span id="svcName"></span></p>
+    <p><b>Date:</b>    <span id="svcDate"></span></p>
+    <p><b>Time:</b>    <span id="svcTime"></span></p>
+    <p><b>Duration:</b><span id="svcDuration"></span> min</p>
+    <p><b>Total:</b>   <span id="svcPrice"></span> Baht</p>
+  </div>
+
+  <a href="#" id="btnPay" class="btn-pay">Pay</a>
+</main>
+
+<script>
+const params       = new URLSearchParams(location.search);
+    const serviceCode  = params.get("service")   || "";
+    const date         = params.get("date")      || "";
+    const time         = params.get("time")      || "";
+    const duration     = params.get("duration")  || "";
+    const price        = params.get("price")     || "";
+    const token        = sessionStorage.getItem('authToken');
+
+
+    const svcMap = {
+      foot:   "Foot Massage",
+      head:   "Head Massage",
+      body:   "Body Massage",
+      oil:    "Oil Massage",
+      kid:    "Massage for Kid",
+      couple: "Thai Style Massage",
+      aroma:  "Aromatherapy Massage",
+      facial: "Facial Massage"
+    };
+
+    document.getElementById("svcName"    ).textContent = svcMap[serviceCode] || "";
+    document.getElementById("svcDate"    ).textContent = date;
+    document.getElementById("svcTime"    ).textContent = time;
+    document.getElementById("svcDuration").textContent = duration;
+    document.getElementById("svcPrice"   ).textContent = price;
+
+
+    if (token) {
+      fetch('/api/profile',{ headers:{ 'Authorization':`Bearer ${token}` } })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(profile => {
+          if (profile.avatar) document.getElementById("profileImg").src = profile.avatar;
+          document.getElementById("userName").textContent = 
+            `${profile.first_name} ${profile.last_name}`;
+        })
+        .catch(()=>{/* unauthorized or error */});
+    }
+
+    const codeToId = {
+      foot:   1,
+      head:   2,
+      body:   3,
+      oil:    4,
+      kid:    5,
+      couple: 6,
+      aroma:  7,
+      facial: 8
+    };
+
+    document.getElementById("btnPay").onclick = async () => {
+      const resp = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          serviceId: codeToId[serviceCode], 
+          date:      date,
+          time:      time,
+          duration:  parseInt(duration, 10),
+          price:     parseFloat(price)
+        })
+      });
+      if (!resp.ok) {
+        alert('下单失败，请重试');
+        return;
+      }
+      const { appointmentId } = await resp.json();
+      window.location.href = `payment.html?price=${price}&appointmentId=${appointmentId}`;
+    };
+</script>  
+    <footer class="page-footer">
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+      </nav>
+    </footer>
+  </body>
+  </html>
+  
+
+</body>
+</html>
