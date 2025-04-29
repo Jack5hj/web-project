@@ -198,7 +198,7 @@ const params       = new URLSearchParams(location.search);
         })
       });
       if (!resp.ok) {
-        alert('下单失败，请重试');
+        alert('error');
         return;
       }
       const { appointmentId } = await resp.json();
